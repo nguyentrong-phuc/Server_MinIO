@@ -1,3 +1,19 @@
+const SKIP_BUCKET_CHECK = process.env.SKIP_BUCKET_CHECK === "true";
+
+(async () => {
+  if (SKIP_BUCKET_CHECK) {
+    console.log("[BOOT] Skip bucket check (SKIP_BUCKET_CHECK=true)");
+    return;
+  }
+  try {
+    await ensureBucket(BUCKET_UPLOAD);
+    if (BUCKET_PRESIGN !== BUCKET_UPLOAD) await ensureBucket(BUCKET_PRESIGN);
+  } catch (e) {
+    console.error("[BOOT] Bucket check error:", e?.message || e);
+  }
+})();
+
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
