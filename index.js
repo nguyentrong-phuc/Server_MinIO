@@ -145,12 +145,10 @@ function buildKey({ base, phase, kind, index }) {
 
 /* ========= Routes ========= */
 
-app.get("/health", (req, res) => {
-  res.status(200).json({
-    ok: true,
-    ts: new Date().toISOString()
-  });
+app.get("/health-minio", (req, res) => {
+  res.status(200).json({ ok: true, ts: new Date().toISOString() });
 });
+
 
 // Health
 app.get("/", (_req, res) => {
